@@ -1,0 +1,27 @@
+<?php
+
+    $chute = 0;
+    $min = readline("defina o intervalo dos números digite o valor minimo: ");
+    $max = readline("Digite o valor máximo: ");
+
+    $sorteado = rand($min,$max);
+
+    while ($chute != $sorteado) {
+     
+        $chute = (int) readline("digite um número:  ");
+
+        if ($chute == $sorteado) {
+            print ("você venceu");
+        }
+        else {
+            print ("você perdeu"); 
+            if ($chute > $sorteado + 5) {
+                print (" ,o valor chutado foi muito alto\n");
+            }
+            else{
+                print (" ,o valor chutado foi muito baixo\n");
+        }
+    }
+   } 
+
+ 
