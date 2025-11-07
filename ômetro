@@ -1,0 +1,26 @@
+<?php
+
+$quantidade = readline("Quantos filmes/episodios você pretende assistir? ");
+$tempo = readline("Qual a duração média em minutos de cada episodio/filme? ");
+print 'Selecione seu estilo
+
+1.Viciado(assiste sem parar)
+2.Equilibrado(pausas curtas)
+3.Tranquilo(prefere assistir de boa)
+';
+do {
+    $estilo = readline();
+} while ($estilo < 1 or $estilo > 3);
+
+switch ($estilo) {
+    case 1:
+        $horas_livres = $tempo / 0.95;
+        break;
+    case 2:
+
+        break;
+    
+    default:
+        
+        break;
+}
