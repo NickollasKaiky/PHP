@@ -1,27 +1,59 @@
 <?php
 
     $chute = 0;
-    $min = readline("defina o intervalo dos números digite o valor minimo: ");
-    $max = readline("Digite o valor máximo: ");
+    $tentativa = 0;
+    
+   modo();
 
+    do { 
+    $min = readline("\033[1;34mDefina o intervalo do número sorteado:\033[0m\nDigite o valor minimo: ");
+    $max = readline("Digite o valor máximo: ");
+    }while($min > $max or $min == $max);
+   
     $sorteado = rand($min,$max);
 
-    while ($chute != $sorteado) {
+    while ($chute != $sorteado or $tentativa == 0) {
+        print "Tentativas restantes: $tentativa";
      
         $chute = (int) readline("digite um número:  ");
 
         if ($chute == $sorteado) {
-            print ("você venceu");
+            print ("\033[1;32mPARABÉNS VOCÊ VENCEU\033[0m\n");
         }
         else {
-            print ("você perdeu"); 
+            print ("\033[1;31mVOCÊ PERDEU\033[0m\n"); 
             if ($chute > $sorteado + 5) {
-                print (" ,o valor chutado foi muito alto\n");
+                print ("o valor chutado foi muito alto\n");
             }
             else{
-                print (" ,o valor chutado foi muito baixo\n");
+                print ("o valor chutado foi muito baixo\n");
         }
     }
    } 
+
+   function modo(){
+    $modo = readline("SELECIONE O MODO DE JOGO:\n\n1.FÁCIL(número sorteado entre 1 e 10, com 7 tentativas)\n\n2.MÉDIO(número sorteado entre 1 e 100, com 10 tentativas\n\n3.DIFÍCIL(número sorteado entre 1 e 500, com 10 tentativas\n\n4.LIVRE(Você decide o intervalo do número sorteado, com tentativas infinitas)");
+
+        switch ($modo) {
+        case 1:
+            # code...
+            break;
+        case 2:
+
+            break;
+        case 3:
+
+            break;
+        case 4: 
+            
+            break;
+
+        
+        default:
+        echo "\033c";
+            modo();
+            break;
+    }
+   }
 
  
