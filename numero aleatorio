@@ -1,59 +1,88 @@
 <?php
 
-    $chute = 0;
-    $tentativa = 0;
-    
-   modo();
+$chute = 0;
+$tentativa = 0;
+$pontos = 0;
+$sorteado = 0;
+$tentativas_usadas = 0;
 
-    do { 
-    $min = readline("\033[1;34mDefina o intervalo do número sorteado:\033[0m\nDigite o valor minimo: ");
-    $max = readline("Digite o valor máximo: ");
-    }while($min > $max or $min == $max);
-   
-    $sorteado = rand($min,$max);
+print "\033[1;32mADIVINHE O NÚMERO\n\n\033[0m";
 
-    while ($chute != $sorteado or $tentativa == 0) {
-        print "Tentativas restantes: $tentativa";
-     
-        $chute = (int) readline("digite um número:  ");
+modo();
 
-        if ($chute == $sorteado) {
-            print ("\033[1;32mPARABÉNS VOCÊ VENCEU\033[0m\n");
-        }
-        else {
-            print ("\033[1;31mVOCÊ PERDEU\033[0m\n"); 
-            if ($chute > $sorteado + 5) {
-                print ("o valor chutado foi muito alto\n");
-            }
-            else{
-                print ("o valor chutado foi muito baixo\n");
+while ($chute != $sorteado and $tentativa > 0) {
+     $tentativas_usadas++;
+    print "Tentativas restantes: $tentativa\n";
+
+    $chute = (int) readline("digite um número:  ");
+
+    if ($chute == $sorteado) {
+        print "\033c";
+        print("\033[1;32mPARABÉNS!! VOCÊ VENCEU!!\033[0m\n");
+        $pontos = round(($intervalo / $tentativas_usadas) * $modo);
+        print "\033[1;37mPontuação: $pontos\n";
+        break;
+    } else {
+        print "\033c";
+        print("\033[1;31mERROU!!\033[0m\n");
+        if ($chute > $sorteado) {
+            print("o valor chutado foi muito alto\n");
+        } else {
+            print("o valor chutado foi muito baixo\n");
         }
     }
-   } 
+    $tentativa--;
+    if ($tentativa <= 0) {
+        print "\033c";
+        print "\033[1;31mVOCÊ PERDEU\033[0m\nAcabaram suas tentativas\nO número sorteado era: $sorteado\n";
+    }
+}
 
-   function modo(){
-    $modo = readline("SELECIONE O MODO DE JOGO:\n\n1.FÁCIL(número sorteado entre 1 e 10, com 7 tentativas)\n\n2.MÉDIO(número sorteado entre 1 e 100, com 10 tentativas\n\n3.DIFÍCIL(número sorteado entre 1 e 500, com 10 tentativas\n\n4.LIVRE(Você decide o intervalo do número sorteado, com tentativas infinitas)");
 
-        switch ($modo) {
+
+function modo()
+{
+    global $tentativa, $sorteado, $modo, $intervalo;
+
+    print("SELECIONE O MODO DE JOGO:\n1.\033[1;32mFÁCIL\033[0m\n(número sorteado entre 1 e 10, com 7 tentativas)\n2.\033[1;33mMÉDIO\033[0m\n(número sorteado entre 1 e 100, com 10 tentativas)\n3.\033[1;31mDIFÍCIL\033[0m\n(número sorteado entre 1 e 500, com 10 tentativas)\n4.\033[1;37mLIVRE\033[0m\n(Você decide o intervalo do número sorteado, com 99999999999999999 tentativas)\n");
+    $modo = readline("");
+
+    switch ($modo) {
         case 1:
-            # code...
+            $tentativa = 7;
+            $sorteado = rand(1, 10);
+            $modo = 10;
+            $intervalo = 10;
             break;
         case 2:
-
+            $tentativa = 10;
+            $sorteado = rand(1, 100);
+            $modo = 20;
+            $intervalo = 100;
             break;
         case 3:
-
+            $tentativa = 10;
+            $sorteado = rand(1, 500);
+            $modo = 30;
+            $intervalo = 500;
             break;
-        case 4: 
-            
+        case 4:
+            $tentativa = 99999999999999999;
+
+            do {
+                $min = (int) readline("\033[1;34mDefina o intervalo do número sorteado:\033[0m\nDigite o valor minimo: ");
+                $max = (int) readline("Digite o valor máximo: ");
+            } while ($min > $max or $min == $max);
+
+            $sorteado = rand($min, $max);
+            $modo = 5;
+            $intervalo = $max - $min;
             break;
 
-        
+
         default:
-        echo "\033c";
+            print "\033c";
             modo();
             break;
     }
-   }
-
- 
+}
