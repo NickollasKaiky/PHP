@@ -1,0 +1,42 @@
+<?php
+
+$quantidade = readline("Quantos filmes/episodios você pretende assistir? ");
+$tempo = readline("Qual a duração média em minutos de cada episodio/filme? ");
+$tempo = $tempo * $quantidade;
+$horas_por_dia = readline("Quantas horas você tem disponível por dia: ");
+print 'Selecione seu estilo
+
+1.Viciado(assiste sem parar)
+2.Equilibrado(pausas curtas)
+3.Tranquilo(prefere assistir de boa)
+';
+do {
+    $estilo = readline();
+} while ($estilo < 1 or $estilo > 3);
+
+switch ($estilo) {
+    case 1:
+        $horas_por_dia *= 0.95;
+        break;
+    case 2:
+        $horas_por_dia *= 0.70;
+        break;
+    case 3:
+        $horas_por_dia *= 0.50;
+        break;
+}
+
+$dias = round($tempo / ($horas_por_dia * 60));
+$pipoca = round($tempo / 120);
+$refrigerante = round($tempo / 180);
+$pizza = round($tempo / 360);
+
+print "\033c";
+print "\u{1F37F} Resultado do Maratonômetro \u{1F37F}
+
+ Tempo total: " . round($tempo / 60) . "h (≃" . round($tempo / 60 / 24) . " dias inteiros assistidos sem parar)
+ Você vai precisar de:
+ •$pipoca pacote(s) de pipoca
+ •$refrigerante lata(s) de refri
+ •$pizza pizza(s)
+ •$dias dia(s) pra terminar sem enlouquecer!\n";
